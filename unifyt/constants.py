@@ -278,6 +278,22 @@ universe_age = Quantity(4.35e17, 'second')  # ~13.8 billion years
 critical_density = Quantity(9.47e-27, 'kilogram/meter^3')
 rho_c = critical_density
 
+# Standard atmospheric conditions
+standard_temperature = Quantity(273.15, 'kelvin')  # 0°C
+standard_pressure = standard_atmosphere
+
+# Water properties at standard conditions
+water_density_stp = Quantity(1000.0, 'kilogram/meter^3')
+water_specific_heat = Quantity(4184.0, 'joule/kilogram/kelvin')
+
+# Air properties at standard conditions
+air_density_stp = Quantity(1.225, 'kilogram/meter^3')
+air_specific_heat = Quantity(1005.0, 'joule/kilogram/kelvin')
+
+# Electrical constants
+elementary_conductance = Quantity(7.748091729e-5, 'siemens')  # 2e²/h
+resistance_quantum = Quantity(12906.4037278, 'ohm')  # h/2e²
+
 # Dictionary of all constants for easy access
 CONSTANTS = {
     # Mathematical
@@ -339,6 +355,8 @@ CONSTANTS = {
     'K_J': K_J,
     'R_K': R_K,
     'Phi_0': Phi_0,
+    'elementary_conductance': elementary_conductance,
+    'resistance_quantum': resistance_quantum,
     
     # Planck Units
     'l_P': l_P,
@@ -351,6 +369,14 @@ CONSTANTS = {
     'b_wien': b_wien,
     'c1': c1,
     'c2': c2,
+    
+    # Standard Conditions
+    'standard_temperature': standard_temperature,
+    'standard_pressure': standard_pressure,
+    'water_density_stp': water_density_stp,
+    'water_specific_heat': water_specific_heat,
+    'air_density_stp': air_density_stp,
+    'air_specific_heat': air_specific_heat,
 }
 
 

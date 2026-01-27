@@ -371,3 +371,131 @@ def where(condition: np.ndarray, x: Quantity, y: Quantity) -> Quantity:
     y_converted = y.to(x.unit)
     result_values = np.where(condition, x.value, y_converted.value)
     return Quantity(result_values, x.unit)
+
+
+def convert_wire_gauge_to_diameter(gauge: int, gauge_type: str = 'awg') -> Quantity:
+    """
+    Convert wire gauge number to diameter.
+    
+    Args:
+        gauge: Wire gauge number
+        gauge_type: Type of gauge ('awg', 'swg', 'bwg')
+        
+    Returns:
+        Wire diameter as Quantity
+        
+    Examples:
+        >>> diameter = convert_wire_gauge_to_diameter(12, 'awg')
+        >>> print(diameter.to('millimeter'))
+    """
+    gauge_type = gauge_type.lower()
+    
+    if gauge_type == 'awg':
+        # AWG formula: diameter = 0.005 * 92^((36-n)/39) inches
+        diameter_inches = 0.005 * (92 ** ((36 - gauge) / 39))
+        return Quantity(diameter_inches * 0.0254, 'meter')  # Convert to meters
+    elif gauge_type == 'swg':
+        # SWG uses lookup table - simplified formula
+        diameter_inches = 0.3 * (0.89 ** gauge)
+        return Quantity(diameter_inches * 0.0254, 'meter')
+    elif gauge_type == 'bwg':
+        # BWG uses lookup table - simplified formula  
+        diameter_inches = 0.34 * (0.89 ** gauge)
+        return Quantity(diameter_inches * 0.0254, 'meter')
+    else:
+        raise ValueError(f"Unknown gauge type: {gauge_type}")
+
+
+def convert_pressure_gauge_to_absolute(gauge_pressure: Quantity, 
+                                     atmospheric_pressure: Quantity = None) -> Quantity:
+    """
+    Convert gauge pressure to absolute pressure.
+    
+    Args:
+        gauge_pressure: Gauge pressure reading
+        atmospheric_pressure: Local atmospheric pressure (default: 1 atm)
+        
+    Returns:
+        Absolute pressure as Quantity
+        
+    Examples:
+        >>> gauge = Quantity(2, 'bar_gauge')
+        >>> absolute = convert_pressure_gauge_to_absolute(gauge)
+        >>> print(absolute.to('bar'))  # ~3.01 bar
+    """
+    if atmospheric_pressure is None:
+        atmospheric_pressure = Quantity(101325, 'pascal')  # 1 atm
+    
+    # Convert both to same units
+    atm_converted = atmospheric_pressure.to(gauge_pressure.unit)
+    return gauge_pressure + atm_converted
+
+
+def convert_ph_to_concentration(ph_value: float) -> Quantity:
+    """
+    Convert pH value to hydrogen ion concentration.
+    
+    Args:
+        ph_value: pH value (dimensionless)
+        
+    Returns:
+        H+ concentration in mol/L
+        
+    Examples:
+        >>> conc = convert_ph_to_concentration(7.0)  # Neutral water
+        >>> print(conc)  # 1e-7 mol/L
+    """
+    concentration = 10 ** (-ph_value)
+    return Quantity(concentration, 'molar')
+
+
+def convert_concentration_to_ph(concentration: Quantity) -> float:
+    """
+    Convert hydrogen ion concentration to pH value.
+    
+    Args:
+        concentration: H+ concentration
+        
+    Returns:
+        pH value (dimensionless)
+        
+    Examples:
+        >>> ph = convert_concentration_to_ph(Quantity(1e-7, 'molar'))
+        >>> print(ph)  # 7.0
+    """
+    conc_molar = concentration.to('molar').magnitude
+    return -np.log10(conc_molar)
+
+
+def convert_decibel_to_ratio(db_value: float) -> float:
+    """
+    Convert decibel value to linear ratio.
+    
+    Args:
+        db_value: Value in decibels
+        
+    Returns:
+        Linear ratio (dimensionless)
+        
+    Examples:
+        >>> ratio = convert_decibel_to_ratio(20)  # 20 dB
+        >>> print(ratio)  # 100 (voltage ratio)
+    """
+    return 10 ** (db_value / 20)  # For voltage/current ratios
+
+
+def convert_ratio_to_decibel(ratio: float) -> float:
+    """
+    Convert linear ratio to decibel value.
+    
+    Args:
+        ratio: Linear ratio
+        
+    Returns:
+        Value in decibels
+        
+    Examples:
+        >>> db = convert_ratio_to_decibel(100)
+        >>> print(db)  # 40.0 dB (power ratio)
+    """
+    return 20 * np.log10(ratio)  # For voltage/current ratios

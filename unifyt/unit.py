@@ -27,6 +27,7 @@ class Unit:
          'dimensionless': Dimension(),
         # Derived units with their dimensions
         'joule': Dimension(mass=1, length=2, time=-2),  # kg⋅m²/s²
+        'kilogram_per_square_meter': Dimension(mass=1, length=-2),  # kg/m²
     }
     
     # Conversion factors to base units
@@ -371,6 +372,9 @@ class Unit:
         'gram_per_cubic_centimeter': 1000.0, 'g_cm3': 1000.0,
         'gram_per_liter': 1.0, 'g_L': 1.0,
         
+        # Surface Density (mass per area)
+        'kilogram_per_square_meter': 1.0, 'kg_m2': 1.0, 'kg_per_m2': 1.0,
+        
         # Flow Rate
         'cubic_meter_per_second': 1.0, 'm3_s': 1.0,
         'liter_per_second': 0.001, 'L_s': 0.001,
@@ -381,6 +385,109 @@ class Unit:
         'mile_per_gallon': 425144.0, 'mpg': 425144.0,  # Inverse meters
         'kilometer_per_liter': 1000.0, 'km_L': 1000.0,
         'liter_per_100km': 0.01, 'L_100km': 0.01,
+        
+        # Wire Gauge Standards (diameter in mm)
+        'american_wire_gauge_10': 0.002588, 'awg_10': 0.002588,  # 10 AWG
+        'american_wire_gauge_12': 0.002053, 'awg_12': 0.002053,  # 12 AWG
+        'american_wire_gauge_14': 0.001628, 'awg_14': 0.001628,  # 14 AWG
+        'american_wire_gauge_16': 0.001291, 'awg_16': 0.001291,  # 16 AWG
+        'american_wire_gauge_18': 0.001024, 'awg_18': 0.001024,  # 18 AWG
+        'american_wire_gauge_20': 0.000812, 'awg_20': 0.000812,  # 20 AWG
+        'standard_wire_gauge_10': 0.003251, 'swg_10': 0.003251,  # 10 SWG
+        'standard_wire_gauge_12': 0.002642, 'swg_12': 0.002642,  # 12 SWG
+        'standard_wire_gauge_14': 0.002032, 'swg_14': 0.002032,  # 14 SWG
+        'birmingham_wire_gauge_10': 0.003404, 'bwg_10': 0.003404,  # 10 BWG
+        'birmingham_wire_gauge_12': 0.002769, 'bwg_12': 0.002769,  # 12 BWG
+        
+        # Gauge Pressure Units (same conversion as absolute, context indicates gauge)
+        'bar_gauge': 1e5, 'bar_g': 1e5, 'barg': 1e5,
+        'kilopascal_gauge': 1000.0, 'kpa_g': 1000.0, 'kpag': 1000.0,
+        'psi_gauge': 6894.76, 'psi_g': 6894.76, 'psig': 6894.76,
+        'kilogram_per_square_centimeter_gauge': 98066.5, 'kg_cm2_g': 98066.5, 'kgf_cm2_g': 98066.5,
+        
+        # Water Column Pressure
+        'inch_water_column': 249.1, 'in_wc': 249.1, 'inwc': 249.1,
+        'millimeter_water_column': 9.807, 'mm_wc': 9.807, 'mmwc': 9.807,
+        'meter_water_column': 9807.0, 'm_wc': 9807.0, 'mwc': 9807.0,
+        'millimeter_water_column_gauge': 9.807, 'mm_wc_g': 9.807, 'mmwcg': 9.807,
+        
+        # Textile and Paper Industry (surface density: g/m² to kg/m²)
+        'grams_per_square_meter': 0.001, 'gsm': 0.001, 'g_m2': 0.001,
+        
+        # Additional Flow Units
+        'liters_per_hour': 2.77778e-7, 'lph': 2.77778e-7, 'l_h': 2.77778e-7,
+        'liters_per_second': 0.001, 'lps': 0.001, 'l_s': 0.001,
+        'tons_per_hour': 0.277778, 'tph': 0.277778, 't_h': 0.277778,
+        'normal_cubic_meters_per_hour': 2.77778e-4, 'nm3_h': 2.77778e-4, 'ncmh': 2.77778e-4,
+        
+        # Electrical Power Units
+        'volt_ampere': 1.0, 'va': 1.0,
+        'kilovolt_ampere': 1000.0, 'kva': 1000.0,
+        'megavolt_ampere': 1e6, 'mva': 1e6,
+        'kilovolt_ampere_reactive': 1000.0, 'kvar': 1000.0,
+        
+        # Additional Electrical Units
+        'gigaohm': 1e9, 'gohm': 1e9, 'GΩ': 1e9,
+        'volt_ac_dc': 1.0, 'vac_dc': 1.0,  # Context-dependent voltage
+        
+        # Torque Units
+        'inch_pound': 0.112985, 'in_lb': 0.112985, 'inch_lbf': 0.112985,
+        'newton_meter': 1.0, 'nm_torque': 1.0, 'n_m': 1.0,
+        
+        # Additional Pressure Units
+        'hectopascal': 100.0, 'hpa': 100.0,
+        'ton_force_per_square_meter': 9806.65, 'tf_m2': 9806.65,
+        
+        # Concentration and Density Units
+        'milligrams_per_liter': 0.001, 'mg_l': 0.001, 'mg_per_l': 0.001,
+        'micrograms_per_cubic_meter': 1e-9, 'ug_m3': 1e-9, 'ug_per_m3': 1e-9,
+        'kilograms_per_cubic_meter': 1.0, 'kg_m3': 1.0, 'kg_per_m3': 1.0,
+        'kilograms_per_square_meter': 1.0, 'kg_m2': 1.0, 'kg_per_m2': 1.0,
+        'kilograms_per_square_millimeter': 1e6, 'kg_mm2': 1e6, 'kg_per_mm2': 1e6,
+        
+        # Conductivity Units
+        'microsiemens_per_centimeter': 1e-4, 'us_cm': 1e-4, 'us_per_cm': 1e-4,
+        'millisiemens_per_centimeter': 0.1, 'ms_cm': 0.1, 'ms_per_cm': 0.1,
+        
+        # Additional Time Units
+        'month': 2629800.0, 'mon': 2629800.0,  # Average month
+        
+        # Capacitance (additional)
+        'microfarad': 1e-6, 'mfd': 1e-6,  # Alternative notation
+        
+        # Dimensionless and Ratios
+        'decibel': 1.0, 'db': 1.0,  # Logarithmic unit (dimensionless)
+        'ph_scale': 1.0, 'ph': 1.0,  # pH scale (dimensionless)
+        'strain': 1.0, 'str': 1.0,  # Strain (dimensionless)
+        'pressure_ratio': 1.0, 'pr': 1.0,  # Pressure ratio (dimensionless)
+        
+        # Additional Area Units
+        'square_millimeter': 1e-6, 'mm2': 1e-6, 'sq_mm': 1e-6,
+        'square_inch': 0.00064516, 'in2': 0.00064516, 'sq_in': 0.00064516,
+        'square_meter': 1.0, 'm2': 1.0, 'sq_m': 1.0,
+        'square_centimeter': 1e-4, 'cm2': 1e-4, 'sq_cm': 1e-4,
+        'square_foot': 0.092903, 'ft2': 0.092903, 'sq_ft': 0.092903,
+        
+        # Volume Units (additional)
+        'cubic_millimeter': 1e-9, 'mm3': 1e-9, 'cu_mm': 1e-9,
+        'cubic_centimeter': 1e-6, 'cm3': 1e-6, 'cu_cm': 1e-6, 'cc': 1e-6,
+        'cubic_meter': 1.0, 'm3': 1.0, 'cu_m': 1.0,
+        'cubic_foot': 0.0283168, 'ft3': 0.0283168, 'cu_ft': 0.0283168,
+        'cubic_inch': 1.63871e-5, 'in3': 1.63871e-5, 'cu_in': 1.63871e-5,
+        
+        # Flow Rate (additional)
+        'cubic_feet_per_minute': 4.71947e-4, 'cfm': 4.71947e-4, 'ft3_min': 4.71947e-4,
+        'cubic_meters_per_hour': 2.77778e-4, 'm3_h': 2.77778e-4, 'cmh': 2.77778e-4,
+        'cubic_meters_per_second': 1.0, 'm3_s': 1.0, 'cms': 1.0,
+        
+        # Velocity Units (additional)
+        'meters_per_hour': 2.77778e-4, 'm_h': 2.77778e-4, 'mh': 2.77778e-4,
+        'feet_per_second': 0.3048, 'ft_s': 0.3048, 'fps': 0.3048,
+        'meters_per_second': 1.0, 'm_s': 1.0, 'ms_velocity': 1.0,
+        
+        # Energy Storage
+        'ampere_hour': 3600.0, 'ah': 3600.0, 'amp_hour': 3600.0,
+        'milliampere_hour': 3.6, 'mah': 3.6, 'milliamp_hour': 3.6,
     }
     
     # Map units to their base unit (auto-generated from conversions)
@@ -483,6 +590,165 @@ class Unit:
                        'rydberg', 'Ry', 'hartree', 'Ha']
         for u in energy_units:
             mapping[u] = 'joule'
+        
+        # Power units
+        power_units = ['watt', 'W', 'watts', 'kilowatt', 'kW', 'kilowatts', 'megawatt', 'MW',
+                      'gigawatt', 'GW', 'terawatt', 'TW', 'milliwatt', 'mW', 'microwatt', 'uW',
+                      'nanowatt', 'nW', 'horsepower', 'hp', 'metric_horsepower', 'PS',
+                      'boiler_horsepower', 'volt_ampere', 'va', 'kilovolt_ampere', 'kva',
+                      'megavolt_ampere', 'mva', 'kilovolt_ampere_reactive', 'kvar']
+        for u in power_units:
+            mapping[u] = 'watt'
+        
+        # Pressure units
+        pressure_units = ['pascal', 'Pa', 'kilopascal', 'kPa', 'megapascal', 'MPa',
+                         'gigapascal', 'GPa', 'bar', 'bars', 'millibar', 'mbar',
+                         'microbar', 'ubar', 'barye', 'atmosphere', 'atm',
+                         'technical_atmosphere', 'at', 'psi', 'PSI', 'pound_per_square_inch',
+                         'torr', 'Torr', 'inch_mercury', 'inHg', 'millimeter_mercury', 'mmHg',
+                         'bar_gauge', 'bar_g', 'barg', 'kilopascal_gauge', 'kpa_g', 'kpag',
+                         'psi_gauge', 'psi_g', 'psig', 'kilogram_per_square_centimeter_gauge',
+                         'kg_cm2_g', 'kgf_cm2_g', 'inch_water_column', 'in_wc', 'inwc',
+                         'millimeter_water_column', 'mm_wc', 'mmwc', 'meter_water_column',
+                         'm_wc', 'mwc', 'millimeter_water_column_gauge', 'mm_wc_g', 'mmwcg',
+                         'hectopascal', 'hpa', 'ton_force_per_square_meter', 'tf_m2']
+        for u in pressure_units:
+            mapping[u] = 'pascal'
+        
+        # Force units
+        force_units = ['newton', 'N', 'newtons', 'kilonewton', 'kN', 'meganewton', 'MN',
+                      'dyne', 'dyn', 'kilogram_force', 'kgf', 'gram_force', 'gf',
+                      'ton_force', 'tf', 'pound_force', 'lbf', 'poundal', 'kip']
+        for u in force_units:
+            mapping[u] = 'newton'
+        
+        # Frequency units
+        freq_units = ['hertz', 'Hz', 'millihertz', 'mHz', 'kilohertz', 'kHz',
+                     'megahertz', 'MHz', 'gigahertz', 'GHz', 'terahertz', 'THz',
+                     'rpm', 'rps']
+        for u in freq_units:
+            mapping[u] = 'hertz'
+        
+        # Voltage units
+        voltage_units = ['volt', 'V', 'volts', 'millivolt', 'mV', 'microvolt', 'uV',
+                        'nanovolt', 'nV', 'kilovolt', 'kV', 'megavolt', 'MV',
+                        'statvolt', 'volt_ac_dc', 'vac_dc']
+        for u in voltage_units:
+            mapping[u] = 'volt'
+        
+        # Current units
+        current_units = ['ampere', 'A', 'amperes', 'amp', 'amps', 'milliampere', 'mA',
+                        'microampere', 'uA', 'nanoampere', 'nA', 'picoampere', 'pA',
+                        'kiloampere', 'kA', 'statampere']
+        for u in current_units:
+            mapping[u] = 'ampere'
+        
+        # Resistance units
+        resistance_units = ['ohm', 'Ω', 'ohms', 'kiloohm', 'kΩ', 'megaohm', 'MΩ',
+                           'gigaohm', 'gohm', 'GΩ']
+        for u in resistance_units:
+            mapping[u] = 'ohm'
+        
+        # Capacitance units
+        capacitance_units = ['farad', 'F', 'millifarad', 'mF', 'microfarad', 'uF',
+                            'nanofarad', 'nF', 'picofarad', 'pF', 'mfd']
+        for u in capacitance_units:
+            mapping[u] = 'farad'
+        
+        # Inductance units
+        inductance_units = ['henry', 'H', 'millihenry', 'mH', 'microhenry', 'uH',
+                           'nanohenry', 'nH']
+        for u in inductance_units:
+            mapping[u] = 'henry'
+        
+        # Magnetic field units
+        magnetic_units = ['tesla', 'T', 'millitesla', 'mT', 'microtesla', 'uT',
+                         'nanotesla', 'nT', 'gauss', 'G', 'milligauss', 'mG']
+        for u in magnetic_units:
+            mapping[u] = 'tesla'
+        
+        # Area units (derived from length²)
+        area_units = ['hectare', 'ha', 'acre', 'acres', 'square_millimeter', 'mm2', 'sq_mm',
+                     'square_inch', 'in2', 'sq_in', 'square_meter', 'm2', 'sq_m',
+                     'square_centimeter', 'cm2', 'sq_cm', 'square_foot', 'ft2', 'sq_ft']
+        for u in area_units:
+            mapping[u] = 'meter^2'  # Will be handled as derived unit
+        
+        # Volume units (derived from length³)
+        volume_units = ['liter', 'L', 'liters', 'litre', 'litres', 'milliliter', 'mL',
+                       'milliliters', 'gallon', 'gal', 'gallons', 'quart', 'qt',
+                       'pint', 'pt', 'cup', 'cups', 'fluid_ounce', 'fl_oz',
+                       'cubic_millimeter', 'mm3', 'cu_mm', 'cubic_centimeter', 'cm3',
+                       'cu_cm', 'cc', 'cubic_meter', 'm3', 'cu_m', 'cubic_foot', 'ft3',
+                       'cu_ft', 'cubic_inch', 'in3', 'cu_in']
+        for u in volume_units:
+            mapping[u] = 'meter^3'  # Will be handled as derived unit
+        
+        # Wire gauge units (map to length)
+        wire_gauge_units = ['american_wire_gauge_10', 'awg_10', 'american_wire_gauge_12', 'awg_12',
+                           'american_wire_gauge_14', 'awg_14', 'american_wire_gauge_16', 'awg_16',
+                           'american_wire_gauge_18', 'awg_18', 'american_wire_gauge_20', 'awg_20',
+                           'standard_wire_gauge_10', 'swg_10', 'standard_wire_gauge_12', 'swg_12',
+                           'standard_wire_gauge_14', 'swg_14', 'birmingham_wire_gauge_10', 'bwg_10',
+                           'birmingham_wire_gauge_12', 'bwg_12']
+        for u in wire_gauge_units:
+            mapping[u] = 'meter'
+        
+        # Torque units (force × length)
+        torque_units = ['inch_pound', 'in_lb', 'inch_lbf', 'newton_meter', 'nm_torque', 'n_m']
+        for u in torque_units:
+            mapping[u] = 'newton*meter'  # Will be handled as compound unit
+        
+        # Flow rate units (volume/time)
+        flow_units = ['cubic_meter_per_second', 'm3_s', 'liter_per_second', 'L_s',
+                     'liter_per_minute', 'L_min', 'gallon_per_minute', 'gpm',
+                     'liters_per_hour', 'lph', 'l_h', 'liters_per_second', 'lps', 'l_s',
+                     'tons_per_hour', 'tph', 't_h', 'normal_cubic_meters_per_hour', 'nm3_h',
+                     'ncmh', 'cubic_feet_per_minute', 'cfm', 'ft3_min', 'cubic_meters_per_hour',
+                     'm3_h', 'cmh', 'cubic_meters_per_second', 'm3_s', 'cms']
+        for u in flow_units:
+            mapping[u] = 'meter^3/second'  # Will be handled as compound unit
+        
+        # Velocity units (length/time)
+        velocity_units = ['knot', 'kt', 'kn', 'mach', 'meters_per_hour', 'm_h', 'mh',
+                         'feet_per_second', 'ft_s', 'fps', 'meters_per_second', 'm_s',
+                         'ms_velocity']
+        for u in velocity_units:
+            mapping[u] = 'meter/second'  # Will be handled as compound unit
+        
+        # Density/concentration units
+        density_units = ['kilogram_per_cubic_meter', 'kg_m3', 'gram_per_cubic_centimeter',
+                        'g_cm3', 'gram_per_liter', 'g_L', 'milligrams_per_liter', 'mg_l', 'mg_per_l',
+                        'micrograms_per_cubic_meter', 'ug_m3', 'ug_per_m3',
+                        'kilograms_per_cubic_meter', 'kg_m3', 'kg_per_m3']
+        for u in density_units:
+            mapping[u] = 'kilogram/meter^3'
+        
+        # Surface density units (mass per area)
+        surface_density_units = ['grams_per_square_meter', 'gsm', 'g_m2',
+                               'kilograms_per_square_meter', 'kg_m2', 'kg_per_m2',
+                               'kilograms_per_square_millimeter', 'kg_mm2', 'kg_per_mm2']
+        for u in surface_density_units:
+            mapping[u] = 'kilogram_per_square_meter'
+        
+        # Conductivity units
+        conductivity_units = ['microsiemens_per_centimeter', 'us_cm', 'us_per_cm',
+                             'millisiemens_per_centimeter', 'ms_cm', 'ms_per_cm']
+        for u in conductivity_units:
+            mapping[u] = 'siemens/meter'  # Will be handled as compound unit
+        
+        # Energy storage units
+        energy_storage_units = ['ampere_hour', 'ah', 'amp_hour', 'milliampere_hour', 'mah',
+                               'milliamp_hour']
+        for u in energy_storage_units:
+            mapping[u] = 'ampere*second'  # Will be handled as compound unit
+        
+        # Dimensionless units
+        dimensionless_units = ['dimensionless', 'percent', '%', 'ppm', 'ppb', 'ppt',
+                              'decibel', 'db', 'ph_scale', 'ph', 'strain', 'str',
+                              'pressure_ratio', 'pr']
+        for u in dimensionless_units:
+            mapping[u] = 'dimensionless'
         
         cls._UNIT_TO_BASE = mapping
         return mapping

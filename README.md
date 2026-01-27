@@ -1,10 +1,10 @@
-# Unifyt v0.2.0
+# Unifyt v0.3.0
 
 A powerful and easy-to-use Python library for unit conversion and calculations, combining the best features of Pint and Unyt.
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-0.2.0-green.svg)](https://github.com/MEERAN2314/unifyt)
+[![Version](https://img.shields.io/badge/version-0.3.0-green.svg)](https://github.com/MEERAN2314/unifyt)
 
 ## 🌟 Why Unifyt?
 
@@ -27,31 +27,28 @@ print(speed.to('kilometer/hour'))  # 36.0 km/h 🎯
 ## Features
 
 - **Intuitive API**: Simple and Pythonic interface for working with physical quantities
-- **Extensive Unit Support**: **300+ units** including SI, imperial, astronomical, atomic, electromagnetic, and more
+- **Extensive Unit Support**: **380+ units** including SI, imperial, industrial, electromagnetic, and more
 - **High Performance**: Optimized for speed with caching and NumPy integration
 - **Type Safety**: Full type hints for better IDE support
 - **Flexible Conversions**: Easy unit conversions with automatic dimensionality checking
 - **Array Support**: Seamless integration with NumPy arrays
 - **Custom Units**: Define your own units and unit systems
 - **Context Management**: Switch between unit systems easily
-- **Physical Constants**: Built-in library of **80+ physical and astronomical constants**
-- **Utility Functions**: Array creation, statistical operations, and more
+- **Physical Constants**: Built-in library of **90+ physical and astronomical constants**
+- **Utility Functions**: Array creation, statistical operations, and specialized conversions
 - **Serialization**: Save and load quantities in JSON or pickle format
 
-## 🎉 What's New in v0.2.0
+## 🎉 What's New in v0.3.0
 
-- **300+ units** (3x increase from v0.1.0!)
-- **80+ constants** (2.7x increase!)
-- **25+ exception types** for precise error handling
-- **15+ new categories**: Electromagnetic, radioactivity, data storage, viscosity, and more
-- **Comprehensive documentation**: 10+ new guides including WHY_UNIFYT.md, EXCEPTIONS_GUIDE.md
-- **Fully backward compatible** - All existing code works
+- **380+ units** (80+ new units added!)
+- **Industrial units**: Wire gauges (AWG, SWG, BWG), gauge pressures, water column
+- **Specialized units**: Textile (GSM), flow rates, electrical power (VA, kVA, kVAR)
+- **Additional electrical**: Gigaohm, torque units, conductivity
+- **Enhanced utilities**: Wire gauge conversions, pressure conversions, pH/dB utilities
+- **90+ constants** (10+ new constants)
+- **Comprehensive testing**: 100+ new test cases
+- **Full backward compatibility** - All existing code works
 - See [CHANGELOG.md](CHANGELOG.md) for complete details
-- **Custom Units**: Define your own units and unit systems
-- **Context Management**: Switch between unit systems easily
-- **Physical Constants**: Built-in library of physical and astronomical constants
-- **Utility Functions**: Array creation, statistical operations, and more
-- **Serialization**: Save and load quantities in JSON or pickle format
 
 ## Installation
 
@@ -190,7 +187,7 @@ Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md)
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## Supported Units (300+)
+## Supported Units (380+)
 
 ### Core Units
 - **Length**: meter, kilometer, mile, foot, inch, nanometer, angstrom, parsec, light_year, etc.
@@ -200,8 +197,8 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ### Derived Units
 - **Energy**: joule, calorie, kilowatt_hour, electronvolt, BTU, erg, rydberg, hartree, etc.
-- **Power**: watt, kilowatt, horsepower, gigawatt, terawatt, etc.
-- **Pressure**: pascal, bar, atmosphere, psi, torr, gigapascal, etc.
+- **Power**: watt, kilowatt, horsepower, gigawatt, terawatt, volt_ampere, kilovolt_ampere, etc.
+- **Pressure**: pascal, bar, atmosphere, psi, torr, gigapascal, bar_gauge, psi_gauge, etc.
 - **Force**: newton, dyne, kilogram_force, pound_force, kip, etc.
 - **Frequency**: hertz, kilohertz, megahertz, gigahertz, terahertz, rpm, etc.
 - **Voltage**: volt, millivolt, kilovolt, megavolt, etc.
@@ -216,9 +213,22 @@ MIT License - see [LICENSE](LICENSE) file for details.
 - **Angle**: radian, degree, arcminute, arcsecond, etc.
 - **Viscosity**: poise, stokes, pascal_second, etc.
 - **Concentration**: molar, millimolar, micromolar, etc.
-- And many more!
 
-## Physical Constants (80+)
+### Industrial Units (NEW in v0.3.0!)
+- **Wire Gauges**: american_wire_gauge (awg), standard_wire_gauge (swg), birmingham_wire_gauge (bwg)
+- **Gauge Pressures**: bar_gauge, psi_gauge, kilopascal_gauge, etc.
+- **Water Column**: inch_water_column, millimeter_water_column, meter_water_column
+- **Textile**: grams_per_square_meter (gsm)
+- **Flow Rates**: liters_per_hour, tons_per_hour, cubic_feet_per_minute, etc.
+- **Electrical Power**: volt_ampere, kilovolt_ampere, kilovolt_ampere_reactive
+- **Torque**: inch_pound, newton_meter
+- **Conductivity**: microsiemens_per_centimeter, millisiemens_per_centimeter
+- **Energy Storage**: ampere_hour, milliampere_hour
+- **Dimensionless**: decibel, ph_scale, strain, pressure_ratio
+
+And many more!
+
+## Physical Constants (90+)
 
 Access fundamental constants with proper units:
 
@@ -256,6 +266,11 @@ print(constants.Phi_0)      # Magnetic flux quantum
 # Cosmological
 print(constants.T_CMB)      # CMB temperature
 print(constants.universe_age)  # Age of universe
+
+# Standard Conditions (NEW!)
+print(constants.standard_temperature)  # 0°C
+print(constants.water_density_stp)     # Water density at STP
+print(constants.air_density_stp)       # Air density at STP
 ```
 
 ## 🎯 Real-World Applications
